@@ -14,16 +14,16 @@
 class jetMap
 {
     public:
-        int nConstituents;
+        unsigned nConstituents;
         std::unique_ptr<constituent[]> Constituents;
-        //int nJets;
+        //unsigned nJets;
         //std::unique_ptr<constituent[]> Jets;
         double Eta_min;
         double Eta_max;
         double Phi_min;
         double Phi_max;
 
-        jetMap(int constituent_size)
+        jetMap(unsigned constituent_size)
             : nConstituents{constituent_size}, Constituents{new constituent[nConstituents]}
         {
             for(int i = 0; i < nConstituents; i++){
