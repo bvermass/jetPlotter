@@ -23,11 +23,11 @@ class jetMap
         double Phi_min;
         double Phi_max;
 
-        jetMap(unsigned constituent_size)
+        jetMap(unsigned constituent_size, double *Pt, double *Eta, double *Phi, double *Mass, int *PdgId, int *Charge, double *dxySig, double *dzSig, int *NHits, int *NPixelHits, bool *HasTrack)
             : nConstituents{constituent_size}, Constituents{new constituent[nConstituents]}
         {
-            for(int i = 0; i < nConstituents; i++){
-                Constituents[i] = constituent(1., 0., 0., 0, 0., 0., 1);
+            for(unsigned i = 0; i < nConstituents; i++){
+                Constituents[i] = constituent(*(Pt + i), *(Eta + i), *(Phi + i), *(Mass + i), *(PdgId + i), *(Charge + i), *(dxySig + i), *(dzSig + i), *(NHits + i), *(NPixelHits + i), *(HasTrack + i));
             }
         }
 };

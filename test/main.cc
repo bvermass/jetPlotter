@@ -32,20 +32,30 @@ int main(int argc, char * argv[])
     TTreeReaderArray<int>    raJetConstituentCharge(reader, "_JetConstituentCharge");
     TTreeReaderArray<double> raJetConstituentdxySig(reader, "_JetConstituentdxySig");
     TTreeReaderArray<double> raJetConstituentdzSig(reader, "_JetConstituentdzSig");
-    TTreeReaderArray<int>    raJetConstituentsNumberOfHits(reader, "_JetConstituentsNumberOfHits");
-    TTreeReaderArray<int>    raJetConstituentsNumberOfPixelHits(reader, "_JetConstituentsNumberOfPixelHits");
-    TTreeReaderArray<bool> raJetConstituentsHasTrack(reader, "_JetConstituentsHasTrack");
+    TTreeReaderArray<int>    raJetConstituentNumberOfHits(reader, "_JetConstituentsNumberOfHits");
+    TTreeReaderArray<int>    raJetConstituentNumberOfPixelHits(reader, "_JetConstituentsNumberOfPixelHits");
+    TTreeReaderArray<bool> raJetConstituentHasTrack(reader, "_JetConstituentsHasTrack");
 
     int counter = 0;
     while (reader.Next() && counter < nplots) {
         bool JetIsFromHNL = *rvJetIsFromHNL;
         unsigned nJetConstituents = *rvNJetConstituents;
 
-        jetMap jetmap1(nJetConstituents);
+        jetMap jetmap1(nJetConstituents, &raJetConstituentPt[0], &raJetConstituentEta[0], &raJetConstituentPhi[0], &raJetConstituentMass[0], &raJetConstituentPdgId[0], &raJetConstituentCharge[0], &raJetConstituentdxySig[0], &raJetConstituentdzSig[0], &raJetConstituentNumberOfHits[0], &raJetConstituentNumberOfPixelHits[0], &raJetConstituentHasTrack[0]);
         std::cout << "jetmap initialized: " << jetmap1.nConstituents << std::endl;
-        for(int i = 0; i < raJetConstituentPt.GetSize(); i++){
+        for(unsigned i = 0; i < raJetConstituentPt.GetSize(); i++){
             if(raJetConstituentPt[i] == 0) continue;
             std::cout << raJetConstituentPt[i] << " ";
+        }std::cout << std::endl;
+        for(unsigned i = 0; i < jetmap1.nConstituents; i++){
+            std::cout << jetmap1.Constituents[i].Pt << " ";
+        }std::cout << std::endl;
+        for(unsigned i = 0; i < raJetConstituentPt.GetSize(); i++){
+            if(raJetConstituentPt[i] == 0) continue;
+            std::cout << raJetConstituentHasTrack[i] << " ";
+        }std::cout << std::endl;
+        for(unsigned i = 0; i < jetmap1.nConstituents; i++){
+            std::cout << jetmap1.Constituents[i].HasTrack << " ";
         }std::cout << std::endl;
         counter++;
     }
