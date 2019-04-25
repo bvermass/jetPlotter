@@ -49,7 +49,7 @@ int main(int argc, char * argv[])
         unsigned nJetConstituents = *rvNJetConstituents;
 
         jetMap jetmap1(nJetConstituents, &raJetConstituentPt[0], &raJetConstituentEta[0], &raJetConstituentPhi[0], &raJetConstituentMass[0], &raJetConstituentPdgId[0], &raJetConstituentCharge[0], &raJetConstituentdxySig[0], &raJetConstituentdzSig[0], &raJetConstituentNumberOfHits[0], &raJetConstituentNumberOfPixelHits[0], &raJetConstituentHasTrack[0]);
-        jetmap1.Draw(c, plotdirname, counter);
+        jetmap1.Draw(c, plotdirname, counter, nplots);
         counter++;
     }
 

@@ -9,9 +9,10 @@
 #include <memory>
 
 #include <TROOT.h>
+#include <TSystem.h>
 #include <TCanvas.h>
-#include <TH2F.h>
 #include <TPad.h>
+#include <TMarker.h>
 
 #include "../interface/constituent.h"
 
@@ -30,21 +31,26 @@ class jetMap
         jetMap(unsigned constituent_size, double *Pt, double *Eta, double *Phi, double *Mass, int *PdgId, int *Charge, double *dxySig, double *dzSig, int *NHits, int *NPixelHits, bool *HasTrack)
             : nConstituents{constituent_size}, Constituents{new constituent[nConstituents]}
         {
-            Eta_min = 5;
-            Phi_min = 5;
+            double Eta_mean = 0;
+            double Phi_mean = 0;
             for(unsigned i = 0; i < nConstituents; i++){
                 Constituents[i] = constituent(*(Pt + i), *(Eta + i), *(Phi + i), *(Mass + i), *(PdgId + i), *(Charge + i), *(dxySig + i), *(dzSig + i), *(NHits + i), *(NPixelHits + i), *(HasTrack + i));
-                Eta_min = std::min(Eta_min, *(Eta + i));
-                Phi_min = std::min(Phi_min, *(Phi + i));
+                Eta_mean += *(Eta + i);
+                Phi_mean += *(Phi + i);
             }
-            Eta_min -= 0.1;
-            Phi_min -= 0.1;
-            Eta_max = Eta_min + 0.6; // always have a 0.6x0.6 grid
-            Phi_max = Phi_min + 0.6;
+            Eta_mean /= nConstituents;
+            Phi_mean /= nConstituents;
+            Eta_min = Eta_mean - 0.5;
+            Phi_min = Phi_mean - 0.5;
+            Eta_max = Eta_mean + 0.5;
+            Phi_max = Phi_mean + 0.5;
         }
 
-        void Draw(TCanvas *c, TString plotdirname, int counter);
-        TString make_plot_filename(TString plotdirname, int counter);
+        void Draw(TCanvas *c, TString plotdirname, int counter, int nplots);
+        TString make_dir_filename(TString plotdirname, int counter);
+        int get_markerstyle(int pdgid);
+        int get_markercolor(int pdgid);
+        double get_markersize(double pt);
 };
 
 #endif
