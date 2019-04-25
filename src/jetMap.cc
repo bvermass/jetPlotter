@@ -16,10 +16,25 @@ void jetMap::Draw(TCanvas *c, TString plotdirname, int counter, int nplots)
     }
 
     TString plottitle = "Jet Image " + std::to_string(counter);
-    c->DrawFrame(Eta_min, Phi_min, Eta_max, Phi_max, plottitle);
+    TH1F* frame = c->DrawFrame(Eta_min, Phi_min, Eta_max, Phi_max, plottitle);
+    frame->GetXaxis()->SetTitle("eta");
+    frame->GetYaxis()->SetTitle("phi");
     for(int i = 0; i < markers.size(); i++){
         markers[i].Draw();
     }
+    TMarker muonmarker      = make_marker(Eta_min + 0.02, Phi_max + 0.015, 13, 1.3);
+    TMarker electronmarker  = make_marker(Eta_min + 0.18, Phi_max + 0.015, 11, 1.3);
+    TMarker photonmarker    = make_marker(Eta_min + 0.37, Phi_max + 0.015, 22, 1.3);
+    TMarker chadronmarker   = make_marker(Eta_min + 0.55, Phi_max + 0.015, 211, 1.3);
+    TMarker nhadronmarker   = make_marker(Eta_min + 0.77, Phi_max + 0.015, 130, 1.3);
+    muonmarker.Draw();
+    electronmarker.Draw();
+    photonmarker.Draw();
+    chadronmarker.Draw();
+    nhadronmarker.Draw();
+    TText* legend = new TText(Eta_min + 0.04, Phi_max + 0.005, "muon      electron      photon      ch.hadron      n.hadron");
+    legend->SetTextSize(0.035);
+    zever->Draw("same");
     c->Modified();
 
     TString outputfilename     = outputdirname + "/jetImage_" + std::to_string(counter) + ".pdf";
@@ -55,6 +70,15 @@ int jetMap::get_markercolor(int pdgid)
     return kGreen;
 }
 
-double jetMap::get_markersize(double pt){
+double jetMap::get_markersize(double pt)
+{
     return (std::max(0., std::min(50., pt))*9./50. + 1);
+}
+
+TMarker jetMap::make_marker(double x, double y, int pdgid, int markersize)
+{
+    TMarker marker(x, y, get_markerstyle(pdgid));
+    marker.SetMarkerColor(get_markercolor(pdgid));
+    marker.SetMarkerSize(markersize);
+    return marker;
 }
