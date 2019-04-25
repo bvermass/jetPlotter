@@ -5,9 +5,13 @@
 #ifndef jetmap_h
 #define jetmap_h
 
-#include <TROOT.h>
 #include <iostream>
 #include <memory>
+
+#include <TROOT.h>
+#include <TCanvas.h>
+#include <TH2F.h>
+#include <TPad.h>
 
 #include "../interface/constituent.h"
 
@@ -35,9 +39,12 @@ class jetMap
             }
             Eta_min -= 0.1;
             Phi_min -= 0.1;
-            Eta_max = Eta_min + 0.5; // always have a 0.5x0.5 grid
-            Phi_max = Phi_min + 0.5;
+            Eta_max = Eta_min + 0.6; // always have a 0.6x0.6 grid
+            Phi_max = Phi_min + 0.6;
         }
+
+        void Draw(TCanvas *c, TString plotdirname, int counter);
+        TString make_plot_filename(TString plotdirname, int counter);
 };
 
 #endif

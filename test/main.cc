@@ -8,6 +8,8 @@
 #include <TTreeReader.h>
 #include <TTreeReaderValue.h>
 #include <TTreeReaderArray.h>
+#include <TCanvas.h>
+#include <TStyle.h>
 
 #include "../interface/jetMap.h"
 
@@ -36,12 +38,18 @@ int main(int argc, char * argv[])
     TTreeReaderArray<int>    raJetConstituentNumberOfPixelHits(reader, "_JetConstituentsNumberOfPixelHits");
     TTreeReaderArray<bool> raJetConstituentHasTrack(reader, "_JetConstituentsHasTrack");
 
+    // Put this in some drawing class at a necessary point
+    TCanvas *c = new TCanvas("c", "", 800, 800);
+    gStyle->SetOptStat(0);
+    gPad->SetTicks(1,1);
+
     int counter = 0;
     while (reader.Next() && counter < nplots) {
         bool JetIsFromHNL = *rvJetIsFromHNL;
         unsigned nJetConstituents = *rvNJetConstituents;
 
         jetMap jetmap1(nJetConstituents, &raJetConstituentPt[0], &raJetConstituentEta[0], &raJetConstituentPhi[0], &raJetConstituentMass[0], &raJetConstituentPdgId[0], &raJetConstituentCharge[0], &raJetConstituentdxySig[0], &raJetConstituentdzSig[0], &raJetConstituentNumberOfHits[0], &raJetConstituentNumberOfPixelHits[0], &raJetConstituentHasTrack[0]);
+        jetmap1.Draw(c, plotdirname, counter);
         counter++;
     }
 

@@ -2,7 +2,7 @@
 
 headdir=$(pwd)
 
-if g++ -std=c++0x -o a_jetplotter.out ${headdir}"/test/main.cc" `root-config --cflags --glibs` ; then
+if g++ -std=c++0x -o a_jetplotter.out ${headdir}"/src/jetMap.cc" ${headdir}"/test/main.cc" `root-config --cflags --glibs` ; then
     echo -e "\n//////////////////////////"
     echo -e "//COMPILATION SUCCESSFUL//"
     echo -e "//////////////////////////\n"
