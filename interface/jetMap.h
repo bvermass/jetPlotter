@@ -10,6 +10,7 @@
 
 #include <TROOT.h>
 #include <TSystem.h>
+#include <TMath.h>
 #include <TCanvas.h>
 #include <TPad.h>
 #include <TMarker.h>
@@ -65,6 +66,8 @@ class jetMap
             }
         }
 
+        bool Check_for_phi_discontinuity();
+        void Rotate_constituents_over_phi(); // if the jet is centered on the phi discontinuity, then rotate the part close -3.14 over +2pi
         void Draw(TCanvas *c, TString plotdirname, int counter, int nplots);
         TString make_dir_filename(TString plotdirname, int counter);
         int get_markerstyle(int pdgid);

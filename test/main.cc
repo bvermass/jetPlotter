@@ -49,6 +49,7 @@ int main(int argc, char * argv[])
         unsigned nJetConstituents = *rvNJetConstituents;
 
         jetMap jetmap1(nJetConstituents, &raJetConstituentPt[0], &raJetConstituentEta[0], &raJetConstituentPhi[0], &raJetConstituentMass[0], &raJetConstituentPdgId[0], &raJetConstituentCharge[0], &raJetConstituentdxySig[0], &raJetConstituentdzSig[0], &raJetConstituentNumberOfHits[0], &raJetConstituentNumberOfPixelHits[0], &raJetConstituentHasTrack[0], true);
+        if(jetmap1.Check_for_phi_discontinuity()) jetmap1.Rotate_constituents_over_phi();
         jetmap1.Draw(c, plotdirname, counter, nplots);
         counter++;
     }
