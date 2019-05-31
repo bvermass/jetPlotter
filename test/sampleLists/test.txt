@@ -1,2 +1,2 @@
 # filename      map title for plots         n.plots
-/user/bvermass/public/2l2q_analysis/trees/HNLtagger/nodirect_basicChange_cMDAndDistcutAndFrac/full_analyzer/HNLtagger_muon_HeavyNeutrino_lljj_M-3_V-0.00707106781187_mu_massiveAndCKM_LO.root   3mu     10
+/user/bvermass/public/2l2q_analysis/trees/HNLtagger/final/full_analyzer/HNLtagger_muon_HeavyNeutrino_lljj_M-3_V-0.00707106781187_mu_massiveAndCKM_LO.root 3mu_jetl2 20
