@@ -29,14 +29,15 @@ int main(int argc, char * argv[])
     TTreeReaderArray<double> raJetConstituentPt(reader, "_JetConstituentPt");
     TTreeReaderArray<double> raJetConstituentEta(reader, "_JetConstituentEta");
     TTreeReaderArray<double> raJetConstituentPhi(reader, "_JetConstituentPhi");
-    TTreeReaderArray<double> raJetConstituentMass(reader, "_JetConstituentMass");
     TTreeReaderArray<int>    raJetConstituentPdgId(reader, "_JetConstituentPdgId");
     TTreeReaderArray<int>    raJetConstituentCharge(reader, "_JetConstituentCharge");
-    TTreeReaderArray<double> raJetConstituentdxySig(reader, "_JetConstituentdxySig");
-    TTreeReaderArray<double> raJetConstituentdzSig(reader, "_JetConstituentdzSig");
-    TTreeReaderArray<int>    raJetConstituentNumberOfHits(reader, "_JetConstituentsNumberOfHits");
-    TTreeReaderArray<int>    raJetConstituentNumberOfPixelHits(reader, "_JetConstituentsNumberOfPixelHits");
-    TTreeReaderArray<bool> raJetConstituentHasTrack(reader, "_JetConstituentsHasTrack");
+    TTreeReaderArray<double> raJetConstituentdxy(reader, "_JetConstituentdxy");
+    TTreeReaderArray<double> raJetConstituentdz(reader, "_JetConstituentdz");
+    TTreeReaderArray<double> raJetConstituentdxyErr(reader, "_JetConstituentdxyErr");
+    TTreeReaderArray<double> raJetConstituentdzErr(reader, "_JetConstituentdzErr");
+    TTreeReaderArray<int>    raJetConstituentNumberOfHits(reader, "_JetConstituentNumberOfHits");
+    TTreeReaderArray<int>    raJetConstituentNumberOfPixelHits(reader, "_JetConstituentNumberOfPixelHits");
+    TTreeReaderArray<bool>   raJetConstituentHasTrack(reader, "_JetConstituentHasTrack");
 
     // Put this in some drawing class at a necessary point
     TCanvas *c = new TCanvas("c", "", 900, 800);
@@ -48,7 +49,7 @@ int main(int argc, char * argv[])
         bool JetIsFromHNL = *rvJetIsFromHNL;
         unsigned nJetConstituents = *rvNJetConstituents;
 
-        jetMap jetmap1(nJetConstituents, &raJetConstituentPt[0], &raJetConstituentEta[0], &raJetConstituentPhi[0], &raJetConstituentMass[0], &raJetConstituentPdgId[0], &raJetConstituentCharge[0], &raJetConstituentdxySig[0], &raJetConstituentdzSig[0], &raJetConstituentNumberOfHits[0], &raJetConstituentNumberOfPixelHits[0], &raJetConstituentHasTrack[0], true);
+        jetMap jetmap1(nJetConstituents, &raJetConstituentPt[0], &raJetConstituentEta[0], &raJetConstituentPhi[0], &raJetConstituentPdgId[0], &raJetConstituentCharge[0], &raJetConstituentdxy[0], &raJetConstituentdz[0], &raJetConstituentdxyErr[0], &raJetConstituentdzErr[0], &raJetConstituentNumberOfHits[0], &raJetConstituentNumberOfPixelHits[0], &raJetConstituentHasTrack[0], true);
         if(jetmap1.Check_for_phi_discontinuity()) jetmap1.Rotate_constituents_over_phi();
         jetmap1.Draw(c, plotdirname, counter, nplots);
         counter++;

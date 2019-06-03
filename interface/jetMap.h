@@ -33,7 +33,7 @@ class jetMap
         double Phi_min;
         double Phi_max;
 
-        jetMap(unsigned constituent_size, double *Pt, double *Eta, double *Phi, double *Mass, int *PdgId, int *Charge, double *dxySig, double *dzSig, int *NHits, int *NPixelHits, bool *HasTrack, bool fixedframesize)
+        jetMap(unsigned constituent_size, double *Pt, double *Eta, double *Phi, int *PdgId, int *Charge, double *dxy, double *dz, double *dxyErr, double *dzErr, int *NHits, int *NPixelHits, bool *HasTrack, bool fixedframesize)
             : nConstituents{constituent_size}, Constituents{new constituent[nConstituents]}, FixedFrameSize{fixedframesize}
         {
             double Eta_mean = 0;
@@ -43,7 +43,7 @@ class jetMap
             double Eta_maxparticle = -5;
             double Phi_maxparticle = -5;
             for(unsigned i = 0; i < nConstituents; i++){
-                Constituents[i] = constituent(*(Pt + i), *(Eta + i), *(Phi + i), *(Mass + i), *(PdgId + i), *(Charge + i), *(dxySig + i), *(dzSig + i), *(NHits + i), *(NPixelHits + i), *(HasTrack + i));
+                Constituents[i] = constituent(*(Pt + i), *(Eta + i), *(Phi + i), *(PdgId + i), *(Charge + i), *(dxy + i), *(dz + i), *(dxyErr + i), *(dzErr + i), *(NHits + i), *(NPixelHits + i), *(HasTrack + i));
                 Eta_mean += *(Eta + i);
                 Phi_mean += *(Phi + i);
                 Eta_minparticle = std::min(Eta_minparticle, *(Eta + i));
