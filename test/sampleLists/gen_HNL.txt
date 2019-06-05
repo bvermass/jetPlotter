@@ -1,0 +1,2 @@
+# filename      map title for plots     n.plots
+/user/bvermass/public/2l2q_analysis/trees/HNLtagger/final/full_analyzer/HNLtagger_gen_muon_HeavyNeutrino_lljj_M-5_V-0.004472135955_mu_massiveAndCKM_LO.root gen_5mu 20
